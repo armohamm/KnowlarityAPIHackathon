@@ -52,6 +52,7 @@ def donationQuery():
 	query_time = row[2]
     	details.append({'ngo_id':ngo_id,'mobile_no':mobile_no,'query_time':query_time})
     #details = json.loads(details)
+    details = sorted(details, key=lambda x:x['ngo_id'])
     #TODO get the details from db and pass to donation details.html
     return render_template("details.html", details=details)
 
