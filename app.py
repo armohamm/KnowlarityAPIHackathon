@@ -16,10 +16,11 @@ def connect_it():
 @app.route("/IVR", methods=["GET","POST"])
 def api_call():
 	passed_no = request.args.get('mobile_no')
+	ngo_id = request.args.get('ngo_id')
 	db = connect_it()
 	cursor = db.cursor()
 	date_time = datetime.datetime.strftime(datetime.datetime.now(),'%d-%m-%Y %H:%M %p')
-	sql = "INSERT INTO contact(mobile, query_date) VALUES ('%s', '%s' )" % (passed_no, date_time)
+	sql = "INSERT INTO contact(ngo_id, mobile, query_date) VALUES ('%s', '%s','%s' )" % (ngo_id, passed_no, date_time)
 	try:
    		# Execute the SQL command
    		cursor.execute(sql)
@@ -35,7 +36,7 @@ def api_call():
 # disconnect from server
 	db.close()
 	
-	return "Successfully inserted into db: "+str(passed_no)+" "+str(date_time)
+	return "Successfully inserted into db: "+str(ngo_id)+" "+str(passed_no)+" "+str(date_time)
 
 if __name__ == "__main__":
 	app.run(debug=True)
