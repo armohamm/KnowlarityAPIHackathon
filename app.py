@@ -7,10 +7,35 @@ app = Flask(__name__)
 def index():
 	return render_template("index.html")
 
+def connect():
+	import MySQLdb
+	db = MySQLdb.connect("us-cdbr-iron-east-01.cleardb.net","b5d17a9a9a98e9","3675c689","heroku_a657c2307ce439d" )
+	return db
+
 @app.route("/IVR", methods=["GET","POST"])
 def api_call():
+	import datetime
 	passed_no = request.args.get('mobile_no')
-	return passed_no
+	db = connect()
+	cursor = db.cursor()
+	date_time = datetime.datetime.strftime(datetime.datetime.now(),'%d-%m-%Y %H:%M %p')
+	sql = "INSERT INTO contact(mobile, query_date) VALUES ('%s', '%s' )" % (passed_no, date_time)
+	try:
+   		# Execute the SQL command
+   		cursor.execute(sql)
+   		# Fetch all the rows in a list of lists.
+		db.commit()
+   		"""results = cursor.fetchall()
+   		for row in results:
+	        	mobile = row[0]
+      			query_date= row[1]"""
+      # Now print fetched result
+	except:
+   		db.rollback()
+# disconnect from server
+	db.close()
+	
+	return "Successfully inserted into db: "+str(passed_no)+" "+str(date_time)
 
 if __name__ == "__main__":
 	app.run(debug=True)
