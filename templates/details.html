@@ -33,6 +33,7 @@
          <th>NGO Name</th>
          <th>Caller's Mobile Number</th>
          <th>Date & Time of Query</th>
+         <th>Make a Call</th>
       </tr>
    </thead>
    <tbody>
@@ -48,7 +49,9 @@
          <td>Say Trees</td>
          {% endif %}
           <td>{{ entry.mobile_no}}</td>
-          <td>{{ entry.query_time}}</td></tr>
+          <td>{{ entry.query_time}}</td>
+          <td> <a href={{ entry.url }} target="_blank" > Call </a></td>
+          </tr>
          {% endfor %}
    </tbody>
 </table>
