@@ -1,5 +1,6 @@
 #appcfg.py -A enduring-grid-600 update appengine-try-python
 from flask import Flask, render_template, request, jsonify
+import datetime
 app = Flask(__name__)
 
 # main index
@@ -7,16 +8,15 @@ app = Flask(__name__)
 def index():
 	return render_template("index.html")
 
-def connect():
+def connect_it():
 	import MySQLdb
 	db = MySQLdb.connect("us-cdbr-iron-east-01.cleardb.net","b5d17a9a9a98e9","3675c689","heroku_a657c2307ce439d" )
 	return db
 
 @app.route("/IVR", methods=["GET","POST"])
 def api_call():
-	import datetime
 	passed_no = request.args.get('mobile_no')
-	db = connect()
+	db = connect_it()
 	cursor = db.cursor()
 	date_time = datetime.datetime.strftime(datetime.datetime.now(),'%d-%m-%Y %H:%M %p')
 	sql = "INSERT INTO contact(mobile, query_date) VALUES ('%s', '%s' )" % (passed_no, date_time)
