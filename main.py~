@@ -7,25 +7,10 @@ app = Flask(__name__)
 def index():
 	return render_template("index.html")
 
-# cobrand session token
-@app.route("/Add", methods=["GET","POST"])
-def add():
-	a = request.form.get("value_a")
-	if "http" not in a:
-		a="http://"+a
-	#sum1=int(a)+int(b)
-        sum1 =summarize.main1(a)
-	return render_template("Add.html", a=a,sum1=sum1)
-
-
-@app.route("/API", methods=["GET","POST"])
+@app.route("/IVR", methods=["GET","POST"])
 def api_call():
-	passed_url = request.args.get('url')
-	if "http" not in passed_url:
-		passed_url="http://"+passed_url
-	#Algorithm based on sentence score with the count of important words
-        #sum1 =summarize.main1(passed_url)
-	#algorithm based on word in title
+	passed_url = request.args.get('mobile_no')
+	
         sum2 = summ.sum2(passed_url)
 	return sum2
 
