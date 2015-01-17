@@ -38,5 +38,22 @@ def api_call():
 	
 	return "Successfully inserted into db: "+str(ngo_id)+" "+str(passed_no)+" "+str(date_time)
 
+@app.route("/donationQuery")
+def donationQuery():
+    db = connect_it()
+    cursor = db.cursor()
+    sql = "select * from contact"
+    cursor.execute(sql)
+    results = cursor.fetchall()
+    details = []
+    for row in results:
+    	ngo_id = row[0]
+    	mobile_no= row[1]
+	query_time = row[2]
+    	details.append({'ngo_id':ngo_id,'mobile_no':mobile_no,'query_time':query_time})
+    #details = json.loads(details)
+    #TODO get the details from db and pass to donation details.html
+    return render_template("details.html", details=details)
+
 if __name__ == "__main__":
 	app.run(debug=True)
