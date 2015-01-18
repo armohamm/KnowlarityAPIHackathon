@@ -54,9 +54,5 @@ def donationQuery():
     #TODO get the details from db and pass to donation details.html
     return render_template("details.html", details=details)
 
-@app.route("/ppt")
-def ppt():
-	return render_template("PPT.html")
-
 if __name__ == "__main__":
 	app.run(debug=True)
