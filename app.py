@@ -26,10 +26,6 @@ def api_call():
    		cursor.execute(sql)
    		# Fetch all the rows in a list of lists.
 		db.commit()
-   		"""results = cursor.fetchall()
-   		for row in results:
-	        	mobile = row[0]
-      			query_date= row[1]"""
       # Now print fetched result
 	except:
    		db.rollback()
@@ -57,6 +53,10 @@ def donationQuery():
     
     #TODO get the details from db and pass to donation details.html
     return render_template("details.html", details=details)
+
+@app.route("/ppt")
+def ppt():
+	return render_template("PPT.html")
 
 if __name__ == "__main__":
 	app.run(debug=True)
